@@ -20,7 +20,7 @@ const Navbar = ({msg}) => {
 
   return (
     <nav className=" fixed top-0 w-full bg-green-700 h-20 text-white flex justify-around items-center  md:flex-row md:items-center md:font-medium">
-      <div className=" md:mx-0">{msg ? `Hello, ${msg}!` : "Loading..."}</div>
+      <div className=" md:mx-0">{msg ? `Hello, ${msg}!` : "Pranaya's Portfolio"}</div>
       <div className="md:hidden">
         <i className="fa-solid fa-bars" onClick={() => setIsOpen(!isOpen)}></i>
       </div>
