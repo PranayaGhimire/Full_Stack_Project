@@ -11,27 +11,38 @@ import DarkModeToggle from "./components/DarkModeToggle";
 import { useEffect, useState } from "react";
 function App() {
   const[data,setData]=useState();
-  // const getData = async ()=>{
-  //       const url="http://localhost:3000/api";
-  //       const response= await fetch(url)
-  //       const data= await response.json();
-  //       console.log(data);
-  // }
-  // useEffect(()=>{
-  //     getData();
-  // },[]);
+  const [loading,setLoading]=useState(true);
+   const getData = async ()=>{
+         const url="http://localhost:3000/api"; 
+         try{
+          const response= await fetch(url,{
+            method:"GET",
+            credentials:"include",  // All cookies
+           })
+           if(!response.ok){
+            throw new Error(`HTTP error! Status: ${response.status}`);
+           }
+           const data= await response.json();
+           console.log(data.username);
+           setData(data.username);
+           setLoading(false);
+         }
+        catch (err){
+          console.log("Fetch error:",err);
+                 window.location.href="http://localhost:3000/login";
+                 // Redirect to Express Login
+        }
+   };
+   useEffect(()=>{
+       getData();
+   },[]);
   
-  useEffect(() => {
-    fetch("http://localhost:3000/api", {
-      method: "GET",
-      credentials: "include", // All cookies
-    })
-      .then((res) => res.json())
-      .then((data) => setData(data.username))
-      .catch((err) => console.log("Fetch error:", err));
-  }, []);
+ 
   
-
+    //Prevent rendering until data is fetched
+    if(loading){
+      return null; // Do not render anything while redirecting
+    }
 
   return (
 
