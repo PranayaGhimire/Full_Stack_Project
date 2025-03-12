@@ -68,7 +68,8 @@ app.post("/login",async (req,res)=>
     // console.log(user.username);
     if(!user)
     {
-        return res.send("Something went wrong!!");
+        // return res.send("Something went wrong!!");
+        return res.redirect('http://localhost:3000')
     }
     bcrypt.compare(req.body.password,user.password,function(err,result){
         if(result)
@@ -81,7 +82,8 @@ app.post("/login",async (req,res)=>
         }
         else
         {
-            res.send("Something went wrong!!");
+            // res.send("Something went wrong!!");
+            res.redirect("http://localhost:3000/login");
         }
     })
 });
